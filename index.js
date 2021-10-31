@@ -18,7 +18,7 @@ app.use("/peliculas",peliculasRoutes)
 mongoose.connect('mongodb://localhost:27017/test').then(
 ()=>{
     //console.log("Conexion Exitosa")
-    app.listen(8080,()=>{
+    app.listen(8082,()=>{
         console.log("Servidor en linea")
     })
 }

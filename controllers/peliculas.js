@@ -11,32 +11,33 @@ exports.postAgregarPeliculas = async (req,res)=>{
          req.body.year>0 
         &&req.body.director.length>0 
         &&req.body.duracion.length>0 &&
-        (req.body.clasificacion==="AA" ||req.body.clasificacion==="A" ) ){
+        (req.body.clasificacion==="A" ||req.body.clasificacion==="B" 
+        ||req.body.clasificacion==="B15"||req.body.clasificacion==="C") ){
 
-    /* Se busca si existen repetidos, regresa un arreglo con los valores*/
-    const repetido= await Carta.find({
-        numeracion:req.body.numeracion,
-        color: req.body.color,
-        paloCarta:req.body.paloCarta,
-    })
+    /* Se busca si existen registros repetidos, regresa un arreglo con los valores*/
+    const repetido= await Pelicula.find({
+        titulo:req.body.titulo
+    })  
 
  if(repetido.length===0){
      console.log("valor no repetido")
-     const carta=new Carta(
+     const pelicula=new Pelicula(
         {
-            numeracion:req.body.numeracion,
-            color: req.body.color,
-            paloCarta:req.body.paloCarta,
+            titulo:req.body.titulo,
+            year: req.body.year,
+            director:req.body.director,
+            duracion:req.body.duracion,
+            clasificacion:req.body.clasificacion,
             _id:new mongoose.Types.ObjectId()
         }
                 )
             try{
-                await carta.save()
+                await pelicula.save()
                  //console.log(carta)
-                console.log("carta registrada exitosamente")
+                console.log("Pelicula registrada exitosamente")
                 res.json(
                     {
-                        estatus:"carta registrada exitosamente"
+                        estatus:"Pelicula registrada exitosamente"
                     }
                 )
                 }
@@ -62,20 +63,51 @@ exports.postAgregarPeliculas = async (req,res)=>{
 
 //Read
 exports.getMostrarPeliculas = async (req,res)=>{
-     const respuesta=await Carta.find()
+     const respuesta=await Pelicula.find()
      res.json(respuesta)
 }
 
 //Update
 exports.postActualizarPeliculas = async (req,res)=>{
-    const respuesta=await Carta.find()
-    res.json(respuesta)
+    try{
+
+        await Pelicula.findByIdAndUpdate(req.body.id,{
+            titulo:req.body.titulo,
+            year: req.body.year,
+            director:req.body.director,
+            duracion:req.body.duracion,
+            clasificacion:req.body.clasificacion
+        })
+        console.log("valor actualizado")
+        res.json({
+            estatus:"valor actualizado correctamente"
+        })
+    
+    }
+    catch(err){
+        console.log(err)
+        res.json({
+            estatus:"id no existe o incorrecto"
+        })
+    }
+
 }
 
 //Delete
 exports.postEliminarPeliculas = async (req,res)=>{
-    const respuesta=await Carta.find()
-    res.json(respuesta)
+    try{
+        await Pelicula.findByIdAndRemove(req.body.id)
+        console.log("Pelicula eliminada")
+        res.json({
+            estatus:"valor eliminado correctamente"
+        })
+    }
+    catch(err){
+        console.log(err)
+        res.json({
+            estatus:"id no existe o incorrecto"
+        })
+    }
 }
 
 
