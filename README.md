@@ -1,12 +1,22 @@
 # 1. Servicio de playlists películas
 ## 1.1 Crear película (Create)
-Este servicio permite ...
-- **Endpoint**: `/user`
+Este servicio permite crear una pelicula.
+- **Endpoint**: `/peliculas/agregarPeliculas`
 - **Método**: `Post`
-- **Body**:
-- **errores**:
-- **respuesta**:
-- **respuesta con error**:
+- **Body**:`{
+"titulo":"shrek",
+"year":2010,
+"director":"Mike Mitchell",
+"duracion":"1:30:00",
+"clasificacion":"A"
+}`
+- **validaciones**:
+### Campo  Validación  ###
+**Titulo** String mayor a 0 **Año** Int mayor a 0, **Director** String mayor a 0, **Duración** String mayor a 0, 
+**Clasificación** String igual a "A", "B","B15" o "C"
+- **errores**: InvalidBodyException	Field must be string	422
+- **respuesta**: HTTP status 200 & message: 'Updated successfully'
+- **respuesta con error**: HTTP status 422
 
 ## 1.2 Obtener película (Read)
 Este servicio permite ...
