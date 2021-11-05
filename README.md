@@ -56,38 +56,56 @@ Este servicio permite eliminar una pelicula
 
 # 2. Servicio de museos
 ## 2.1 Crear museos (Create)
-Este servicio permite ...
-- **Endpoint**: `/user`
+Este servicio permite crear un meseo.
+- **Endpoint**: `/museos/agregarMuseos`
 - **Método**: `Post`
-- **Body**:
-- **errores**:
+- **Body**:`{
+"nombre":"Soumaya",
+"ubicacion":"CDMX",
+"descripcion":"ejemplo",
+"tipo":"publico",
+"categoria":"artes" 
+}`
+- **validaciones**: **nombre** String mayor a 0, **ubicacion** String mayor a 0, **descripcion** String mayor a 0, **tipo** String mayor a 0 e igual a "publico" o "privado", **categoria** String mayor a 0 e igual a "artes","humanidades" o "antropologia".
+- **errores**: InvalidBodyException	Field must be string	422
 - **respuesta**: HTTP status 200                
 - **respuesta con error**: HTTP status 422
 
 ## 2.2 Obtener museos (Read)
-Este servicio permite ...
-- **Endpoint**: `/user`
-- **Método**: `Post`
-- **Body**:
-- **errores**:
-- **respuesta**: HTTP status 200                
+Este servicio permite leer museos.
+- **Endpoint**: `/museos/mostrarMuseos`
+- **Método**: `Get`
+- **Body**: No aplica
+- **errores**: UserNotFoundException	User doesn't exist	500, InvalidTokenException The token is no valid 401
+- **respuesta**:HTTP status 200
 - **respuesta con error**: HTTP status 422
 
 ## 2.3 Actualizar museos (Update)
-Este servicio permite ...
-- **Endpoint**: `/user`
+Este servicio permite actualizar un museo.
+- **Endpoint**: `/museos/actualizarMuseos`
 - **Método**: `Post`
-- **Body**:
-- **errores**:
-- **respuesta**: HTTP status 200                
+- **Body**: `{
+"id":"617de5dab9e4041691ea0eac",
+"nombre":"Soumaya",
+"ubicacion":"CDMX",
+"descripcion":"ejemplo",
+"tipo":"publico",
+"categoria":"artes" 
+}`
+- **Validaciones:** **id** String que exista dentro de MondoDb ,**nombre** String mayor a 0 **ubicacion** String mayor a 0, **descripcion** String mayor a 0, **tipo** String mayor a 0, **categoria** String mayor a 0.
+- **errores**: AliasExistsException 500
+- **respuesta**: HTTP status 200
 - **respuesta con error**: HTTP status 422
 
 ## 2.4 Eliminar museos (Delete)
-Este servicio permite ...
-- **Endpoint**: `/user`
+Este servicio permite eliminar un museo.
+- **Endpoint**: `/museos/eliminarMuseos`
 - **Método**: `Post`
-- **Body**:
-- **errores**:
-- **respuesta**: HTTP status 200                
+- **Body**: `{
+"id":"617de6e6e81c0c8b58eca07c"
+}`
+- **Validaciones:** **id** String que exista dentro de MondoDb
+- **errores**: AliasExistsException 500
+- **respuesta**: HTTP status 200
 - **respuesta con error**: HTTP status 422
 
